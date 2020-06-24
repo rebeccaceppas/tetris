@@ -209,7 +209,7 @@ def draw_next(surface, piece):
             if column == '0':
                 pygame.draw.rect(surface, piece.colour, (xx + j * block_size, yy + i * block_size, block_size, block_size), 0)
 
-    surface.blit(label, (xx - 10, yy - 10))
+    surface.blit(label, (xx - 10, yy - 30))
 
 
 def draw_window(surface, grid, score=0):
@@ -220,11 +220,11 @@ def draw_window(surface, grid, score=0):
     
     f = pygame.font.SysFont('arial', 70)
     label = f.render('Tetris', 1, (255, 255, 255))
-    surface.blit(label, (top_x + play_width/2 - label.get_width()/2, top_y - 50))
+    surface.blit(label, (top_x + play_width/2 - label.get_width()/2, top_y - 70))
 
-    f2 = pygame.font.SysFont('comicsans', 12)
-    label_score = f.render('Score: %d' %(score), 1, (255, 255, 255))
-    surface.blit(label_score, (top_x - 200, screen_height - 100))
+    f2 = pygame.font.SysFont('arial', 20)
+    label_score = f2.render('Score: %d' %(score), 1, (255, 255, 255))
+    surface.blit(label_score, (top_x - 150, screen_height - 100))
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
@@ -305,7 +305,7 @@ def main():
         if level_time/1000 > 5:
             level_time = 0
             if fall_speed > 0.12:
-                fall_speed -= 0.005
+                fall_speed -= 0.001
 
         if fall_time/1000 > fall_speed:
             fall_time = 0
@@ -344,6 +344,7 @@ def main():
             for position in shape_position:
                 p = (position[0], position[1])
                 locked_positions[p] = current_piece.colour
+
             current_piece = next_piece
             next_piece = get_shape(shapes)
             increment = clear_rows(grid, locked_positions)
@@ -355,25 +356,26 @@ def main():
         pygame.display.update()
 
         if check_lost(locked_positions):
-            draw_text(screen, 'You Lost!', (255, 255, 255), 40)
-            pygame.display.update()
-            pygame.time.delay(2000)
             running = False
+            break
 
+    draw_text(screen, 'You Lost!', (255, 255, 255), 40)
+    pygame.display.update()
+    pygame.time.delay(2000)
 
 def main_menu():
     
     ''' Start of program '''
 
-    running = True
-    while running:
+    run = True
+    while run:
         screen.fill(background_colour)
         draw_text(screen, 'Press any key to play', (255, 255, 255), 60)
         pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                run = False
                 pygame.display.quit()
             if event.type == pygame.KEYDOWN:
                 main()
