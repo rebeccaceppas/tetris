@@ -199,13 +199,13 @@ def draw_next(surface, piece):
     f = pygame.font.SysFont('arial', 50)
     label = f.render('Next shape', 1, (255, 255, 255))
     xx = top_x + play_width + 100
-    yy = top_y + play_height/2 + 100
+    yy = top_y + play_height/2 - 100
 
     form = piece.shape[piece.rotation % len(piece.shape)]  # gives you needed sublist
 
     for i, line in enumerate(form):
         row = list(line)
-        for j, column in row:
+        for j, column in enumerate(row):
             if column == '0':
                 pygame.draw.rect(surface, piece.colour, (xx + j * block_size, yy + i * block_size, block_size, block_size), 0)
 
@@ -227,7 +227,7 @@ def draw_window(surface, grid, score=0):
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
-            pygame.draw.rect(surface, grid[j][i], (top_x + j * block_size, top_y + i * block_size, block_size, block_size), 0)
+            pygame.draw.rect(surface, grid[i][j], (top_x + j * block_size, top_y + i * block_size, block_size, block_size), 0)
 
     pygame.draw.rect(surface, (255, 0, 0), (top_x, top_y, play_width, play_height), 1)
 
