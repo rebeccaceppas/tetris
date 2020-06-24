@@ -184,7 +184,7 @@ def clear_rows(grid, locked_positions={}):
                     continue
     
     if increment > 0:
-        for key in sorted(list(locked_positions, key = lambda x: x[1]))[::-1]:
+        for key in sorted(list(locked_positions), key = lambda x: x[1])[::-1]:
             x, y = key
             if y < ind:
                 new_key = (x, y + increment)
@@ -321,7 +321,7 @@ def main():
                 if event.key == pygame.K_LEFT:
                     current_piece.x -= 1
                     if not valid_space(current_piece, grid):
-                        current_piece += 1
+                        current_piece.x += 1
                 elif event.key == pygame.K_RIGHT:
                     current_piece.x += 1
                     if not valid_space(current_piece, grid):
