@@ -196,9 +196,9 @@ def draw_next(surface, piece):
 
     ''' Shows user the next shape '''
 
-    f = pygame.font.SysFont('arial', 50)
+    f = pygame.font.SysFont('arial', 40)
     label = f.render('Next shape', 1, (255, 255, 255))
-    xx = top_x + play_width + 30
+    xx = top_x + play_width + 50
     yy = top_y + play_height/2 - 100
 
     form = piece.shape[piece.rotation % len(piece.shape)]  # gives you needed sublist
@@ -209,7 +209,7 @@ def draw_next(surface, piece):
             if column == '0':
                 pygame.draw.rect(surface, piece.colour, (xx + j * block_size, yy + i * block_size, block_size, block_size), 0)
 
-    surface.blit(label, (xx, yy - 30))
+    surface.blit(label, (xx - 10, yy - 10))
 
 
 def draw_window(surface, grid, score=0):
@@ -218,20 +218,21 @@ def draw_window(surface, grid, score=0):
 
     surface.fill((0, 0, 0))
     
-    f = pygame.font.SysFont('arial', 60)
+    f = pygame.font.SysFont('arial', 70)
     label = f.render('Tetris', 1, (255, 255, 255))
     surface.blit(label, (top_x + play_width/2 - label.get_width()/2, top_y - 50))
 
-    f2 = pygame.font.SysFont('arial', 40)
-    label_score = f.render('Your score is: %d' %(score), 1, (255, 255, 255))
+    f2 = pygame.font.SysFont('comicsans', 12)
+    label_score = f.render('Score: %d' %(score), 1, (255, 255, 255))
+    surface.blit(label_score, (top_x - 200, screen_height - 100))
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             pygame.draw.rect(surface, grid[i][j], (top_x + j * block_size, top_y + i * block_size, block_size, block_size), 0)
 
-    pygame.draw.rect(surface, (255, 0, 0), (top_x, top_y, play_width, play_height), 1)
-
     draw_grid(surface, grid)
+
+    pygame.draw.rect(surface, (255, 0, 0), (top_x, top_y, play_width, play_height), 1)
 
 
 def convert_shape_format(piece):
