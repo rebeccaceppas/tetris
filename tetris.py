@@ -198,7 +198,7 @@ def draw_next(surface, piece):
 
     f = pygame.font.SysFont('arial', 50)
     label = f.render('Next shape', 1, (255, 255, 255))
-    xx = top_x + play_width + 100
+    xx = top_x + play_width + 30
     yy = top_y + play_height/2 - 100
 
     form = piece.shape[piece.rotation % len(piece.shape)]  # gives you needed sublist
@@ -310,7 +310,7 @@ def main():
             fall_time = 0
             current_piece.y += 1
             if not valid_space(current_piece, grid) and current_piece.y > 0:
-                current_piece -= 1
+                current_piece.y -= 1
                 change_piece = True
         
         for event in pygame.event.get():
@@ -345,7 +345,7 @@ def main():
                 locked_positions[p] = current_piece.colour
             current_piece = next_piece
             next_piece = get_shape(shapes)
-            clear_rows(grid, locked_positions)
+            increment = clear_rows(grid, locked_positions)
             score += 10 * increment
             change_piece = False
         
