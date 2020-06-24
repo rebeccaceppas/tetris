@@ -223,7 +223,7 @@ def draw_window(surface, grid, score=0):
     surface.blit(label, (top_x + play_width/2 - label.get_width()/2, top_y - 50))
 
     f2 = pygame.font.SysFont('arial', 40)
-    label_score = f.render('Your score is: %d' %(score))
+    label_score = f.render('Your score is: %d' %(score), 1, (255, 255, 255))
 
     for i in range(len(grid)):
         for j in range(len(grid[i])):
@@ -346,6 +346,7 @@ def main():
             current_piece = next_piece
             next_piece = get_shape(shapes)
             clear_rows(grid, locked_positions)
+            score += 10 * increment
             change_piece = False
         
         draw_window(screen, grid, score)
